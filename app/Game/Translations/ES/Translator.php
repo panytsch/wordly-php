@@ -31,8 +31,11 @@ class Translator implements TranslatorInterface
             TranslationKey::FETCHING_WORD => 'Introduce tu idioma',
             TranslationKey::SAVE_PROGRESS => '¿Quieres guardar tu progreso?',
             TranslationKey::LOAD_PROGRESS => '¿Quieres recuperar tu progreso?',
-            TranslationKey::PREV_GUESSES  => 'Tus conjeturas anteriores:',
+            TranslationKey::PREV_GUESSES  => "Tus conjeturas anteriores.\nFondo blanco: la letra existe pero en otra posición, verde: posición correcta",
             TranslationKey::GUESS_WORD    => 'Ingresa tu palabra:',
+            TranslationKey::WIN           => '¡Has ganado!',
+            TranslationKey::LOSE          => '¡Has perdido!',
+            TranslationKey::WANT_RETRY    => '¿Quieres volver a jugar?',
             default                       => null,
         };
     }

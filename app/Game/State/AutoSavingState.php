@@ -102,6 +102,13 @@ class AutoSavingState
         }
     }
 
+    public function refresh(): self
+    {
+        $this->state->refresh();
+
+        return $this;
+    }
+
     private function saveProgress()
     {
         // todo

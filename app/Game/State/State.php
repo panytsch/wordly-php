@@ -31,4 +31,13 @@ class State
     {
         $this->previousGuesses = Collection::empty();
     }
+
+    public function refresh(): void
+    {
+        $this->previousGuesses = Collection::empty();
+        $this->gameStarted = false;
+        $this->gameResult = null;
+        $this->numberOfGuesses = 0;
+        $this->word = null;
+    }
 }

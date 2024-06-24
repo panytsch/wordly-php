@@ -11,4 +11,7 @@ enum TranslationKey
     case LOAD_PROGRESS;
     case PREV_GUESSES;
     case GUESS_WORD;
+    case WIN;
+    case LOSE;
+    case WANT_RETRY;
 }

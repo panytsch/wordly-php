@@ -8,7 +8,7 @@ use App\Game\Translations\TranslationKey;
 use App\Game\Translations\TranslatorInterface;
 use function Laravel\Prompts\confirm;
 
-class WinGame implements Action
+class LoseGame implements Action
 {
 
     public function __construct(
@@ -20,9 +20,9 @@ class WinGame implements Action
 
     public function run(): void
     {
-        IO::command()->info($this->translator->translate(TranslationKey::WIN));
+        IO::command()->info($this->translator->translate(TranslationKey::LOSE));
 
-        $this->state->finishGame(true);
+        $this->state->finishGame(false);
 
         $wantToPlayAgain = confirm(
             label:    $this->translator->translate(TranslationKey::WANT_RETRY),

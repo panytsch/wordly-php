@@ -27,8 +27,11 @@ readonly class Translator implements TranslatorInterface
             TranslationKey::FETCHING_WORD => 'Fetching word...',
             TranslationKey::SAVE_PROGRESS => 'Would you like to save your progress?',
             TranslationKey::LOAD_PROGRESS => 'Do you want to restore progress?',
-            TranslationKey::PREV_GUESSES  => 'You previous guesses:',
-            TranslationKey::GUESS_WORD    => 'Enter your word:',
+            TranslationKey::PREV_GUESSES  => "You previous guesses.\nWhite background - letter exists but on other position, green - correct position",
+            TranslationKey::GUESS_WORD    => 'Enter your word',
+            TranslationKey::WIN           => 'You have won!',
+            TranslationKey::LOSE          => 'You have lost!',
+            TranslationKey::WANT_RETRY    => 'Do you want to play again?',
             default                       => null,
         };
     }

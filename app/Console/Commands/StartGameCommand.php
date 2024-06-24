@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Console\IO;
 use App\Game\Game;
 use Illuminate\Console\Command;
 
@@ -14,8 +15,10 @@ class StartGameCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(Game $game)
+    public function handle(Game $game): void
     {
+        IO::setCommand($this);
+
         $game->start();
     }
 }

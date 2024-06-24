@@ -2,8 +2,6 @@
 
 namespace App\Game\WordProviders;
 
-use App\Game\Translations\SupportedLanguage;
-use Faker\Factory;
 use GuzzleHttp\Client;
 
 class RandomWordApiProvider
@@ -34,6 +32,7 @@ class RandomWordApiProvider
 
     public function englishWord(int $length)
     {
+        return 'adssf'; //todo remove
         $uri = 'https://random-word.ryanrk.com/api/en/word/random/';
         $response = $this->client->get(
             $uri,

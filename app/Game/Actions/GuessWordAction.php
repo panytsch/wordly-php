@@ -2,19 +2,22 @@
 
 namespace App\Game\Actions;
 
+use App\Console\IO;
 use App\Game\GameConfig;
 use App\Game\State\AutoSavingState;
-use App\Game\Translations\TranslatorInterface;
 use App\Game\Translations\TranslationKey;
+use App\Game\Translations\TranslatorInterface;
+use Illuminate\Support\Str;
 use function Laravel\Prompts\text;
 
 readonly class GuessWordAction implements Action
 {
-
     public function __construct(
         private AutoSavingState     $state,
         private GameConfig          $gameConfig,
         private TranslatorInterface $translator,
+        private WinGame             $winGameAction,
+        private LoseGame            $loseGameAction,
     )
     {
     }
@@ -32,7 +35,6 @@ readonly class GuessWordAction implements Action
         }
 
         $this->runLoseGameAction();
-        $this->state->finishGame(false);
     }
 
     protected function proceedWithGuesses(): bool
@@ -45,10 +47,10 @@ readonly class GuessWordAction implements Action
         if (!$this->state->previousGuesses()) {
             return;
         }
-        \Laravel\Prompts\info($this->translator->translate(TranslationKey::PREV_GUESSES));
-
-        foreach ($this->state->previousGuesses() as $guess) {
-            \Laravel\Prompts\info($guess);
+        if ($this->state->numberOfGuesses() > 0) {
+            $message = $this->translator->translate(TranslationKey::PREV_GUESSES);
+            IO::command()->line($message);
+            $this->formatPreviousResults();
         }
     }
 
@@ -69,20 +71,44 @@ readonly class GuessWordAction implements Action
     private function checkWord(): bool
     {
         $word = $this->state->previousGuesses()->last();
-        if ($word === $this->state->getWord()) {
-            $this->state->finishGame(true);
+        return $word === $this->state->getWord();
+    }
 
-            return true;
+    private function runWinGameAction(): void
+    {
+        $this->winGameAction->run();
+    }
+
+    private function runLoseGameAction(): void
+    {
+        $this->loseGameAction->run();
+    }
+
+    protected function formatPreviousResults(): void
+    {
+        $formatted = $this->state->previousGuesses()->map(
+            fn (string $word) => $this->formatWord($word)
+        );
+
+        IO::command()->table([], $formatted);
+    }
+
+    private function formatWord(string $word): array
+    {
+        $letters = str_split($word);
+
+        $result = [];
+        foreach ($letters as $index => $letter) {
+            $hiddenWord = $this->state->getWord();
+            if ($hiddenWord[$index] === $letter) {
+                $result [] = "<fg=black;bg=green> $letter </>";
+            } elseif (Str::contains($hiddenWord, $letter)) {
+                $result [] = "<fg=black;bg=white> $letter </>";
+            } else {
+                $result [] = " $letter ";
+            }
         }
 
-        return false;
-    }
-
-    private function runWinGameAction()
-    {
-    }
-
-    private function runLoseGameAction()
-    {
+        return $result;
     }
 }
