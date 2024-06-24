@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Game\State\AutoSavingState;
+use App\Game\State\CacheStorage;
+use App\Game\State\GameSaveStorage;
 use App\Game\State\State;
 use App\Game\Translations\Translator;
 use App\Game\Translations\TranslatorInterface;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->bind(TranslatorInterface::class, Translator::class);
+        $this->app->bind(GameSaveStorage::class, CacheStorage::class);
         $this->app->singleton(State::class);
         $this->app->singleton(AutoSavingState::class);
     }

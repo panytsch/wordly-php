@@ -14,4 +14,5 @@ enum TranslationKey
     case WIN;
     case LOSE;
     case WANT_RETRY;
+    case ANSWER;
 }

@@ -26,7 +26,6 @@ class WinGame implements Action
 
         $wantToPlayAgain = confirm(
             label:    $this->translator->translate(TranslationKey::WANT_RETRY),
-            required: true,
         );
 
         if ($wantToPlayAgain) {

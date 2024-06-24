@@ -11,7 +11,7 @@ use function Laravel\Prompts\confirm;
 class AutoSavingState
 {
 
-    public function __construct(private State $state)
+    public function __construct(private State $state, private Save $save)
     {
     }
 
@@ -109,8 +109,8 @@ class AutoSavingState
         return $this;
     }
 
-    private function saveProgress()
+    private function saveProgress(): void
     {
-        // todo
+        $this->save->save();
     }
 }

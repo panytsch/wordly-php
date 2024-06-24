@@ -13,7 +13,7 @@ readonly class ChoseLanguage implements Action
 
     public function __construct(
         private TranslatorInterface $translator,
-        private StartGame           $startGame,
+        private LoadSave            $startGame,
     )
     {
     }

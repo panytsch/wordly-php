@@ -11,7 +11,7 @@ class RandomWordApiProvider
     {
     }
 
-    public function spanishWord(int $length)
+    public function spanishWord(int $length): string
     {
         $uri = "https://random-word-api.herokuapp.com/word";
         $response = $this->client->get(
@@ -30,9 +30,8 @@ class RandomWordApiProvider
         return $decoded[0];
     }
 
-    public function englishWord(int $length)
+    public function englishWord(int $length): string
     {
-        return 'adssf'; //todo remove
         $uri = 'https://random-word.ryanrk.com/api/en/word/random/';
         $response = $this->client->get(
             $uri,

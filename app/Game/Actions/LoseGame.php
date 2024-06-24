@@ -6,6 +6,7 @@ use App\Console\IO;
 use App\Game\State\AutoSavingState;
 use App\Game\Translations\TranslationKey;
 use App\Game\Translations\TranslatorInterface;
+use Illuminate\Support\Str;
 use function Laravel\Prompts\confirm;
 
 class LoseGame implements Action
@@ -24,9 +25,14 @@ class LoseGame implements Action
 
         $this->state->finishGame(false);
 
+        IO::command()->info(Str::replace(
+            '%word%',
+            $this->state->getWord(),
+            $this->translator->translate(TranslationKey::ANSWER)
+        ));
+
         $wantToPlayAgain = confirm(
-            label:    $this->translator->translate(TranslationKey::WANT_RETRY),
-            required: true,
+            label: $this->translator->translate(TranslationKey::WANT_RETRY),
         );
 
         if ($wantToPlayAgain) {
