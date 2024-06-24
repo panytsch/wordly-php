@@ -5,17 +5,15 @@ namespace App\Game\Actions;
 use App\Events\LanguageSelected;
 use App\Game\Translations\SupportedLanguage;
 use App\Game\Translations\TranslationKey;
-use App\Game\Translations\Translator;
-use Illuminate\Contracts\Container\Container;
+use App\Game\Translations\TranslatorInterface;
 use function Laravel\Prompts\select;
 
-class ChoseLanguage implements Action
+readonly class ChoseLanguage implements Action
 {
 
     public function __construct(
-        private Translator $defaultTranslator,
-        private Container  $container,
-        private StartGame  $startGame,
+        private TranslatorInterface $translator,
+        private StartGame           $startGame,
     )
     {
     }
@@ -23,9 +21,9 @@ class ChoseLanguage implements Action
     public function run(): void
     {
         $selectedLanguage = select(
-            label:   $this->defaultTranslator->translate(TranslationKey::CHOSE_LANG),
+            label:   $this->translator->translate(TranslationKey::CHOSE_LANG),
             options: [
-                         SupportedLanguage::UA->value,
+                         SupportedLanguage::ES->value,
                          SupportedLanguage::EN->value,
                      ],
             default: SupportedLanguage::EN->value

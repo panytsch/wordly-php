@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Game\Translations\UA;
+namespace App\Game\Translations\ES;
 
 use App\Game\Translations\TranslationKey;
-use App\Game\Translations\Translator as TranslatorInterface;
+use App\Game\Translations\TranslatorInterface;
 
 class Translator implements TranslatorInterface
 {
@@ -26,8 +26,13 @@ class Translator implements TranslatorInterface
     private function getTranslation(TranslationKey $key): ?string
     {
         return match ($key) {
-            TranslationKey::CHOSE_LANG    => 'Оберіть мову',
-            TranslationKey::STARTING_GAME => 'Починаємо гру! Натисніть Enter щоб продовжити',
+            TranslationKey::CHOSE_LANG    => 'Elige tu idioma',
+            TranslationKey::STARTING_GAME => '¡Comencemos el juego! Pulse Intro para continuar',
+            TranslationKey::FETCHING_WORD => 'Introduce tu idioma',
+            TranslationKey::SAVE_PROGRESS => '¿Quieres guardar tu progreso?',
+            TranslationKey::LOAD_PROGRESS => '¿Quieres recuperar tu progreso?',
+            TranslationKey::PREV_GUESSES  => 'Tus conjeturas anteriores:',
+            TranslationKey::GUESS_WORD    => 'Ingresa tu palabra:',
             default                       => null,
         };
     }

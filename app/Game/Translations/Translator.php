@@ -2,7 +2,35 @@
 
 namespace App\Game\Translations;
 
-interface Translator
+use App\Game\State\AutoSavingState;
+
+class Translator implements TranslatorInterface
 {
-    public function translate(TranslationKey $key): string;
+    private ?TranslatorInterface $translator = null;
+
+    public function __construct(
+        private TranslationFactory $translationFactory,
+        private AutoSavingState    $state,
+    )
+    {
+    }
+
+    public function translate(TranslationKey $key): string
+    {
+        return $this->translator()->translate($key);
+    }
+
+    public function replaceTranslator(SupportedLanguage $language): void
+    {
+        $this->translator = $this->translationFactory->make($language);
+    }
+
+    private function translator(): TranslatorInterface
+    {
+        if ($this->translator === null) {
+            $this->translator = $this->translationFactory->make($this->state->getLang());
+        }
+
+        return $this->translator;
+    }
 }

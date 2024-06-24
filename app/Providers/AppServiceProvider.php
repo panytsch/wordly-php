@@ -2,11 +2,10 @@
 
 namespace App\Providers;
 
-use App\CurrencyRate\Contracts\CurrencyRateInterface;
-use App\CurrencyRate\CurrencyRate;
-use App\Game\Translations\EN\Translator;
-use App\Game\Translations\Translator as TranslatorInterface;
-use Illuminate\Support\Facades\App;
+use App\Game\State\AutoSavingState;
+use App\Game\State\State;
+use App\Game\Translations\Translator;
+use App\Game\Translations\TranslatorInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->instance(TranslatorInterface::class, new Translator());
+        $this->app->bind(TranslatorInterface::class, Translator::class);
+        $this->app->singleton(State::class);
+        $this->app->singleton(AutoSavingState::class);
     }
 }
