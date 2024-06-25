@@ -3,6 +3,7 @@
 ## How to run
 
 ```docker-compose up --build``` in root directory to build app.
+Then run ```docker-compose exec php bash -c 'php artisan migrate'``` to migrate database
 
 When it's done, run ```docker-compose exec php bash -c 'php artisan game:start'``` to start game
 
