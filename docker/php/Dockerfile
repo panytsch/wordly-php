@@ -10,7 +10,7 @@ RUN apt update \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ## uncomment if you need xdebug
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
+#RUN pecl install xdebug \
+#    && docker-php-ext-enable xdebug
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
