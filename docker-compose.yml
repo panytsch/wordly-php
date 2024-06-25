@@ -1,12 +1,12 @@
 services:
-#    composer:
-#        depends_on:
-#            - php
-#        image: composer
-#        working_dir: /var/www/html
-#        volumes:
-#            - .:/var/www/html
-#        command: install
+    composer:
+        depends_on:
+            - php
+        image: composer
+        working_dir: /var/www/html
+        volumes:
+            - .:/var/www/html
+        command: install
 
     webserver:
         image: nginx:latest
